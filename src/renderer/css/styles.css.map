@@ -1,0 +1,13 @@
+{
+	"version": 3,
+	"file": "styles.css",
+	"sources": [
+		"../sass/styles.scss",
+		"../sass/abstracts/_keyframes.scss",
+		"../sass/abstracts/_mixin.scss",
+		"../sass/abstracts/_variables.scss",
+		"../sass/base/_base.scss"
+	],
+	"names": [],
+	"mappings": "AIAA,AAAA,CAAC,AAAA,OAAO;AACR,CAAC,AAAA,QAAQ;AACT,CAAC,CAAC;EACA,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EACV,UAAU,EAAE,OAAO,GACpB;;AAED,AAAA,IAAI,CAAC;EACH,SAAS,EAAE,KAAK,GACjB"
+}

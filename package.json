@@ -1,0 +1,19 @@
+{
+  "name": "router-management-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx electronmon .",
+    "compile": "node-sass ./src/renderer/sass/styles.scss ./src/renderer/css/styles.css -w --source-map true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^29.1.0"
+  },
+  "dependencies": {
+    "node-sass": "^9.0.0"
+  }
+}
