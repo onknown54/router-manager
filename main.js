@@ -1,14 +1,21 @@
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
 const { app, BrowserWindow } = require("electron");
+const path = require("path");
 
-const createWindow = () => {
-  const win = new BrowserWindow({
+const createMainWindow = () => {
+  const mainWindow = new BrowserWindow({
     width: 800,
     height: 500,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+    },
   });
 
-  win.loadFile("./renderer/index.html");
+  mainWindow.loadFile(path.join(__dirname, "renderer/index.html"));
 };
 
 app.whenReady().then(() => {
-  createWindow();
+  createMainWindow();
 });
