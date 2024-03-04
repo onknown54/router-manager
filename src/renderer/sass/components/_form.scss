@@ -1,0 +1,47 @@
+.card {
+  background: #fff;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  box-shadow: 0 0 1rem #202020;
+  border-radius: 0.8rem;
+  width: 30rem;
+}
+
+.form {
+  &__header {
+    text-align: center;
+
+    h3 {
+      color: #0d1d31;
+    }
+  }
+
+  &__body {
+    margin-top: 2rem;
+  }
+
+  &__group {
+    label,
+    input {
+      display: block;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 0.7rem;
+    }
+
+    input {
+      outline: none;
+      border: 0.1rem solid #ccc;
+      padding: 0.6rem 1rem;
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+  }
+}
