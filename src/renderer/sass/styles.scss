@@ -1,5 +1,11 @@
-@import "./abstracts/keyframes";
-@import "./abstracts/mixin";
-@import "./abstracts/variables";
+@import "abstracts/keyframes";
+@import "abstracts/mixin";
+@import "abstracts/variables";
 
-@import "./base/base";
+@import "base/base";
+@import "base/topograpy";
+@import "base/utilities";
+
+@import "components/btn";
+@import "components/form";
+@import "components/star";
