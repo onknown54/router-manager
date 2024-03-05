@@ -1,5 +1,21 @@
-process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
-const { app, BrowserWindow } = require("electron");
+// process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
+const { app, BrowserWindow, ipcMain } = require("electron/main");
+const path = require("node:path");
+
+const createWindow = () => {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+  win.loadFile("index.html");
+};
+app.whenReady().then(() => {
+  ipcMain.handle("ping", () => "pong");
+  createWindow();
+});
 const path = require("path");
 
 function createWindow() {
@@ -9,6 +25,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      preload: path.join(__dirname, "./preload.js"),
     },
   });
 
@@ -18,6 +35,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  ipcMain.handle("ping", () => "pong");
   createWindow();
 
   app.on("activate", function () {

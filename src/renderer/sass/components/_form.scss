@@ -5,9 +5,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 2rem;
+  padding: 3rem 3rem 5rem;
   box-shadow: 0 0 1rem #202020;
-  border-radius: 0.8rem;
+  //   border-radius: 0.8rem;
+  border-top-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
   width: 30rem;
 }
 
@@ -34,6 +36,11 @@
       font-weight: 600;
       font-size: 1.2rem;
       margin-bottom: 0.7rem;
+      transition: all 0.4s;
+
+      &:focus {
+        color: #0b50a3;
+      }
     }
 
     input {
@@ -42,6 +49,11 @@
       padding: 0.6rem 1rem;
       width: 100%;
       margin-bottom: 2rem;
+      transition: all 0.4s;
+
+      &:focus {
+        border: 0.1rem solid #0b50a3;
+      }
     }
   }
 }
