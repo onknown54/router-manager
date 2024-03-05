@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "npx electronmon .",
+    "start": "npx electronmon --trace-warnings .",
+    "start:prod": "electron .",
     "compile": "node-sass ./src/renderer/sass/styles.scss ./src/renderer/css/styles.css -w --source-map true"
   },
   "keywords": [],
