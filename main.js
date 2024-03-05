@@ -19,15 +19,20 @@ function createWindow() {
 
   // Use loadFile method to load the HTML file
   mainWindow.loadURL(path.join(__dirname, "./src/renderer/index.html"));
+
+  ipcMain.on("load-next-page", (event, data) => {
+    console.log(data);
+
+    mainWindow.loadURL(path.join(__dirname, `./src/renderer/${data}`));
+  });
 }
 
 app.whenReady().then(() => {
-  ipcMain.handle("ping", () => "yes my man, pink to the puke to the pong!!!");
   createWindow();
+});
 
-  app.on("activate", function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
+app.on("activate", function () {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
 app.on("window-all-closed", function () {
