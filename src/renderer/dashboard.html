@@ -13,26 +13,32 @@
     <title>Router Manager</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
-  <body class="body">
-    <div class="card">
-      <form action="#">
-        <div class="form__header">
-          <h3>Dashboard</h3>
-        </div>
-        <div class="form__body">
-          <div class="form__group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" />
-          </div>
-          <div class="form__group">
-            <label for="password">Password</label>
-            <input type="text" id="password" name="password" />
-          </div>
-          <div class="form__group">
-            <button type="submit">Login</button>
-          </div>
-        </div>
-      </form>
+  <body>
+    <div class="dashboard">
+      <div class="dashboard__wrap">
+        <nav class="navigation">
+          <header class="navigation__header">
+            <h3>Router Manager</h3>
+          </header>
+          <ul class="navigation__main">
+            <li class="navigation__item">
+              <a href="dashboard.html" class="navigation__link">Dashboard</a>
+            </li>
+            <li class="navigation__item">
+              <a href="devices.html" class="navigation__link">Devices</a>
+            </li>
+            <li class="navigation__item">
+              <a href="settings.html" class="navigation__link">Settings</a>
+            </li>
+            <li class="navigation__item">
+              <a href="systemInfo.html" class="navigation__link"
+                >System Information</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="dashbaord__main">another stuff here</div>
+      </div>
     </div>
     <script src="js/dashboard.js"></script>
   </body>

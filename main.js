@@ -21,8 +21,6 @@ function createWindow() {
   mainWindow.loadURL(path.join(__dirname, "./src/renderer/index.html"));
 
   ipcMain.on("load-next-page", (event, data) => {
-    console.log(data);
-
     mainWindow.loadURL(path.join(__dirname, `./src/renderer/${data}`));
   });
 }
