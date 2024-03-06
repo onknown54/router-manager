@@ -18,7 +18,7 @@ function createWindow() {
   });
 
   // Use loadFile method to load the HTML file
-  mainWindow.loadURL(path.join(__dirname, "./src/renderer/systemInfo.html"));
+  mainWindow.loadURL(path.join(__dirname, "./src/renderer/index.html"));
 
   ipcMain.on("load-next-page", (event, data) => {
     mainWindow.loadURL(path.join(__dirname, `./src/renderer/${data}`));
