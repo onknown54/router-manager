@@ -15,3 +15,6 @@ navLinks.forEach((el) => {
     versions.loadNestPage("load-next-page", page.join(""));
   });
 });
+
+const os = await versions.si.osInfo();
+console.log("System Information:", os);
