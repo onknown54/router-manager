@@ -14,24 +14,33 @@
     height: 100%;
   }
 
+  &__main {
+    flex: 0 0 80%;
+    overflow-y: scroll;
+  }
+
+  .content {
+    padding: 2rem 3rem;
+    overflow-x: hidden;
+  }
+
   .navigation {
     flex: 0 0 20%;
-    background: #dfdfdf;
-    color: black;
-    // padding: 2rem 3rem;
+    background: #232638;
+    color: #1a1a1a;
 
     &__header {
-      padding: 2rem 3rem;
-      background: #0d1d31;
-      color: #dfdfdf;
-      border-bottom: 2px solid #dfdfdf;
+      padding: 2rem;
+      background: #253245;
+      color: #ccc;
+      border-bottom: 2px solid #253245;
     }
 
     &__link {
       display: inline-block;
       width: 100%;
-      padding: 1.7rem 3rem;
-      color: #1a1a1a;
+      padding: 1.7rem 2rem;
+      color: #dfdfdf;
       text-decoration: none;
       font-weight: 600;
 
@@ -47,7 +56,65 @@
     }
   }
 
-  &__main {
-    flex: 0 0 70%;
+  .navbar {
+    padding: 3.1rem 2rem;
+    background: #253245;
+    color: #ccc;
   }
+}
+
+.network {
+  margin: 3rem auto;
+
+  &__wrap {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+
+    @media (max-width: 870px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__header {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2.3rem;
+  }
+
+  &__item {
+    padding: 2rem;
+    background: rgba(110, 111, 115, 0.35);
+    backdrop-filter: blur(9.5px);
+    -webkit-backdrop-filter: blur(9.5px);
+
+    &--disable {
+      background: #aaaaaa;
+      border: none;
+      color: #1a1a1a;
+    }
+  }
+}
+
+table,
+th,
+td {
+  border: 1px solid #6e77838e;
+}
+
+td,
+th {
+  padding: 0.7rem 2rem;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  max-width: 100%;
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.devices {
+  margin: 4rem 0;
 }
