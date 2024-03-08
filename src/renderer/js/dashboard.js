@@ -16,5 +16,4 @@ navLinks.forEach((el) => {
   });
 });
 
-const os = await versions.si.osInfo();
-console.log("System Information:", os);
+versions.si();

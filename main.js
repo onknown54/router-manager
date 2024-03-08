@@ -1,6 +1,7 @@
 // process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
 const { app, BrowserWindow, ipcMain } = require("electron/main");
 const path = require("path");
+const si = require("systeminformation");
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -20,6 +21,24 @@ function createWindow() {
   // Use loadFile method to load the HTML file
   mainWindow.loadURL(path.join(__dirname, "./src/renderer/index.html"));
 
+  // Set a more permissive Content Security Policy
+  mainWindow.webContents.session.webRequest.onHeadersReceived(
+    (details, callback) => {
+      callback({
+        responseHeaders: {
+          ...details.responseHeaders,
+          "Content-Security-Policy": [
+            "default-src *",
+            "style-src *",
+            "script-src *",
+            "img-src *",
+            "font-src *",
+          ],
+        },
+      });
+    }
+  );
+
   ipcMain.on("load-next-page", (event, data) => {
     mainWindow.loadURL(path.join(__dirname, `./src/renderer/${data}.html`));
   });
@@ -27,6 +46,15 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
+
+  // Get system information and send it to the renderer process
+  siosInfo()
+    .then((data) => {
+      mainWindow.webContents.send("systemInfo", data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 app.on("activate", function () {

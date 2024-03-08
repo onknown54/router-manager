@@ -1,9 +1,15 @@
 const { contextBridge, ipcRenderer } = require("electron");
-const si = require("systeminformation");
 
 contextBridge.exposeInMainWorld("versions", {
   loadNestPage: (channel, data) => {
     ipcRenderer.send(channel, data);
   },
-  si,
+  si: () => {
+    console.log("System Information:");
+
+    // Receive the system information from the main process
+    ipcRenderer.on("systemInfo", (event, data) => {
+      console.log(data);
+    });
+  },
 });
