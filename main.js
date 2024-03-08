@@ -21,24 +21,7 @@ function createWindow() {
   // Use loadFile method to load the HTML file
   mainWindow.loadURL(path.join(__dirname, "./src/renderer/index.html"));
 
-  // Set a more permissive Content Security Policy
-  mainWindow.webContents.session.webRequest.onHeadersReceived(
-    (details, callback) => {
-      callback({
-        responseHeaders: {
-          ...details.responseHeaders,
-          "Content-Security-Policy": [
-            "default-src *",
-            "style-src *",
-            "script-src *",
-            "img-src *",
-            "font-src *",
-          ],
-        },
-      });
-    }
-  );
-
+  // handles naviation
   ipcMain.on("load-next-page", (event, data) => {
     mainWindow.loadURL(path.join(__dirname, `./src/renderer/${data}.html`));
   });
@@ -47,14 +30,49 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow();
 
-  // Get system information and send it to the renderer process
-  siosInfo()
-    .then((data) => {
-      mainWindow.webContents.send("systemInfo", data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  // gets system information
+  ipcMain.on("requestSystemInfo", async (event) => {
+    try {
+      const { arch, distro, hostname, kernel, platform, release, build } =
+        await si.osInfo();
+
+      event.sender.send("responseSystemInfo", {
+        systemInfo: {
+          arch,
+          distro,
+          hostname,
+          kernel,
+          platform,
+          release,
+          build,
+        },
+      });
+    } catch (error) {
+      event.sender.send("responseSystemInfo", { error: error.message });
+    }
+  });
+
+  // gets network information
+  ipcMain.on("requestNetworkInfo", async (event) => {
+    try {
+      const { ssid, bssid, security, wpaFlags, signalLevel, frequency, mode } =
+        await si.wifiNetworks();
+
+      event.sender.send("responseNetworkInfo", {
+        networkInfo: {
+          ssid,
+          bssid,
+          security,
+          wpaFlags,
+          signalLevel,
+          frequency,
+          mode,
+        },
+      });
+    } catch (error) {
+      event.sender.send("responseSystemInfo", { error: error.message });
+    }
+  });
 });
 
 app.on("activate", function () {
