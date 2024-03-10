@@ -14,13 +14,13 @@ contextBridge.exposeInMainWorld("versions", {
         return data.error ? reject(data.error) : resolve(data.systemInfo);
       });
     }),
-  getNetworkInfo: () =>
+  getMemoryInfo: () =>
     new Promise((resolve, reject) => {
       // requests network information from main process
-      ipcRenderer.send("requestNetworkInfo");
+      ipcRenderer.send("requestMemoryInfo");
 
       // listen for the response from the main process
-      ipcRenderer.once("responseNetworkInfo", (event, data) => {
+      ipcRenderer.once("responseMemoryInfo", (event, data) => {
         return data.error ? reject(data.error) : resolve(data.networkInfo);
       });
     }),

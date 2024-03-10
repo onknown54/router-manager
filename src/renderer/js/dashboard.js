@@ -1,3 +1,4 @@
+"use strict";
 const navLinks = document.querySelectorAll(".dashboard .navigation__link");
 
 // handles navigation
@@ -17,6 +18,17 @@ navLinks.forEach((el) => {
   });
 });
 
+document.querySelectorAll(".network__header .link").forEach((el) => {
+  el.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (el.classList.contains("link-devices"))
+      return versions.loadNestPage("load-next-page", "devices");
+
+    return versions.loadNestPage("load-next-page", "systemInformation");
+  });
+});
+
 const renderHtmlMarkup = (obj, markupBody) => {
   for (let key in obj) {
     markupBody.innerHTML =
@@ -26,6 +38,8 @@ const renderHtmlMarkup = (obj, markupBody) => {
           <td>${obj[key]}</td>
         </tr>`;
   }
+
+  return true;
 };
 
 (async function () {
@@ -34,13 +48,14 @@ const renderHtmlMarkup = (obj, markupBody) => {
     const table_netInfo = document.querySelector(
       ".network .table.table-netInfo"
     );
-    await versions.getDevices();
+
+    // await versions.getDevices();
 
     // renders system information
     renderHtmlMarkup(await versions.getSystemInfo(), table_sInfo);
 
-    // renders network information
-    renderHtmlMarkup(await versions.getNetworkInfo(), table_netInfo);
+    // renders memory information
+    renderHtmlMarkup(await versions.getMemoryInfo(), table_netInfo);
   } catch (er) {
     console.error("Error retrieving system information:", er);
   }

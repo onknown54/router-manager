@@ -1,3 +1,4 @@
+"use strict";
 const loginForm = document.getElementById("form");
 
 loginForm.addEventListener("submit", (event) => {
