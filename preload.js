@@ -4,4 +4,32 @@ contextBridge.exposeInMainWorld("versions", {
   loadNestPage: (channel, data) => {
     ipcRenderer.send(channel, data);
   },
+  getSystemInfo: () =>
+    new Promise((resolve, reject) => {
+      // requests system information from main process
+      ipcRenderer.send("requestSystemInfo");
+
+      // listen for the response from the main process
+      ipcRenderer.once("responseSystemInfo", (event, data) => {
+        return data.error ? reject(data.error) : resolve(data.systemInfo);
+      });
+    }),
+  getNetworkInfo: () =>
+    new Promise((resolve, reject) => {
+      // requests network information from main process
+      ipcRenderer.send("requestNetworkInfo");
+
+      // listen for the response from the main process
+      ipcRenderer.once("responseNetworkInfo", (event, data) => {
+        return data.error ? reject(data.error) : resolve(data.networkInfo);
+      });
+    }),
+  getDevices: () => {
+    ipcRenderer.send("requestConnDevice");
+
+    ipcRenderer.once("responseConnDevice", (event, data) => {
+      console.log(data);
+      // return data.error ? reject(data.error) : resolve(data.networkInfo);
+    });
+  },
 });
