@@ -21,8 +21,15 @@ contextBridge.exposeInMainWorld("versions", {
 
       // listen for the response from the main process
       ipcRenderer.once("responseNetworkInfo", (event, data) => {
-        console.log(data);
         return data.error ? reject(data.error) : resolve(data.networkInfo);
       });
     }),
+  getDevices: () => {
+    ipcRenderer.send("requestConnDevice");
+
+    ipcRenderer.once("responseConnDevice", (event, data) => {
+      console.log(data);
+      // return data.error ? reject(data.error) : resolve(data.networkInfo);
+    });
+  },
 });

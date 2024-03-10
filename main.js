@@ -2,15 +2,12 @@
 const { app, BrowserWindow, ipcMain } = require("electron/main");
 const path = require("path");
 const si = require("systeminformation");
+const find = require("local-devices");
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 750,
     height: 500,
-    minWidth: 750,
-    minHeight: 500,
-    maxWidth: 750,
-    maxHeight: 500,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -47,8 +44,8 @@ app.whenReady().then(() => {
           build,
         },
       });
-    } catch (error) {
-      event.sender.send("responseSystemInfo", { error: error.message });
+    } catch (er) {
+      event.sender.send("responseSystemInfo", { error: er.message });
     }
   });
 
@@ -69,8 +66,21 @@ app.whenReady().then(() => {
           mode,
         },
       });
-    } catch (error) {
-      event.sender.send("responseSystemInfo", { error: error.message });
+    } catch (er) {
+      event.sender.send("responseNetworkInfo", { error: er.message });
+    }
+  });
+
+  // gets network information
+  ipcMain.on("requestConnDevice", async (event) => {
+    try {
+      const devices = await find().then((dev) => dev);
+
+      event.sender.send("responseConnDevice", {
+        connDevices: devices,
+      });
+    } catch (er) {
+      event.sender.send("responseConnDevice", { error: er.message });
     }
   });
 });

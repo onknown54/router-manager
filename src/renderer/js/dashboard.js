@@ -17,42 +17,31 @@ navLinks.forEach((el) => {
   });
 });
 
-// renders system information
-(async function () {
-  try {
-    const systemInfo = await versions.getSystemInfo();
-    const table = document.querySelector(".network .table.table-sInfo");
-
-    for (let key in systemInfo) {
-      table.innerHTML =
-        table.innerHTML +
-        `<tr>
+const renderHtmlMarkup = (obj, markupBody) => {
+  for (let key in obj) {
+    markupBody.innerHTML =
+      markupBody.innerHTML +
+      `<tr>
           <th>${key}</th>
-          <td>${systemInfo[key]}</td>
+          <td>${obj[key]}</td>
         </tr>`;
-    }
-  } catch (error) {
-    console.error("Error retrieving system information:", error);
   }
-})();
+};
 
-// renders network information
 (async function () {
   try {
-    const networkInfo = await versions.getNetworkInfo();
-    const table = document.querySelector(".network .table.table-netInfo");
+    const table_sInfo = document.querySelector(".network .table.table-sInfo");
+    const table_netInfo = document.querySelector(
+      ".network .table.table-netInfo"
+    );
+    await versions.getDevices();
 
-    for (let key in networkInfo) {
-      table.innerHTML =
-        table.innerHTML +
-        `<tr>
-          <th>${key}</th>
-          <td>${networkInfo[key]}</td>
-        </tr>`;
-    }
+    // renders system information
+    renderHtmlMarkup(await versions.getSystemInfo(), table_sInfo);
 
-    console.log(networkInfo);
-  } catch (error) {
-    console.error("Error retrieving network information:", error);
+    // renders network information
+    renderHtmlMarkup(await versions.getNetworkInfo(), table_netInfo);
+  } catch (er) {
+    console.error("Error retrieving system information:", er);
   }
 })();
