@@ -1,4 +1,4 @@
-// process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
+"use strict";
 const { app, BrowserWindow, ipcMain } = require("electron/main");
 const path = require("path");
 const si = require("systeminformation");

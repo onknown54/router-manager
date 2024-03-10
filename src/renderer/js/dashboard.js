@@ -1,3 +1,4 @@
+"use strict";
 const navLinks = document.querySelectorAll(".dashboard .navigation__link");
 
 // handles navigation
