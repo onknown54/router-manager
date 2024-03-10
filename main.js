@@ -49,29 +49,29 @@ app.whenReady().then(() => {
     }
   });
 
-  // gets network information
-  ipcMain.on("requestNetworkInfo", async (event) => {
+  // gets memory information
+  ipcMain.on("requestMemoryInfo", async (event) => {
     try {
-      const { ssid, bssid, security, wpaFlags, signalLevel, frequency, mode } =
-        await si.wifiNetworks();
+      const { total, free, used, active, available, buffers, cached } =
+        await si.mem();
 
-      event.sender.send("responseNetworkInfo", {
+      event.sender.send("responseMemoryInfo", {
         networkInfo: {
-          ssid,
-          bssid,
-          security,
-          wpaFlags,
-          signalLevel,
-          frequency,
-          mode,
+          total,
+          free,
+          used,
+          active,
+          available,
+          buffers,
+          cached,
         },
       });
     } catch (er) {
-      event.sender.send("responseNetworkInfo", { error: er.message });
+      event.sender.send("responseMemoryInfo", { error: er.message });
     }
   });
 
-  // gets network information
+  // gets connected devices
   ipcMain.on("requestConnDevice", async (event) => {
     try {
       const devices = await find().then((dev) => dev);
