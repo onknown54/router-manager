@@ -2,7 +2,7 @@
 const { app, BrowserWindow, ipcMain } = require("electron/main");
 const path = require("path");
 const si = require("systeminformation");
-const find = require("local-devices");
+const { exec } = require("child_process");
 
 app.whenReady().then(() => {
   // creates browser window
@@ -72,15 +72,40 @@ app.whenReady().then(() => {
 
   // gets connected devices
   ipcMain.on("requestConnDevice", async (event) => {
-    try {
-      const devices = await find().then((dev) => dev);
+    exec("arp -a", (er, stdout, stderr) => {
+      try {
+        if (er) throw er;
 
-      event.sender.send("responseConnDevice", {
-        connDevices: devices,
-      });
-    } catch (er) {
-      event.sender.send("responseConnDevice", { error: er.message });
-    }
+        const lines = stdout.split("\n").map((line) => line.trim());
+
+        const data = {
+          interface: lines[0],
+          dynamicEntries: [],
+          staticEntries: [],
+        };
+
+        lines.slice(2).forEach((line) => {
+          const [internetAddress, physicalAddress, type] = line.split(/\s+/);
+
+          const entries = {
+            internetAddress,
+            physicalAddress,
+            type,
+          };
+
+          if (type?.toLowerCase() === "dynamic")
+            data.dynamicEntries.push(entries);
+          else if (type?.toLowerCase() === "static")
+            data.staticEntries.push(entries);
+        });
+
+        event.sender.send("responseConnDevice", {
+          networkInfo: data,
+        });
+      } catch (er) {
+        event.sender.send("responseConnDevice", { error: stderr });
+      }
+    });
   });
 });
 
