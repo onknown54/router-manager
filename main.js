@@ -4,28 +4,27 @@ const path = require("path");
 const si = require("systeminformation");
 const find = require("local-devices");
 
-function createWindow() {
-  const mainWindow = new BrowserWindow({
-    width: 750,
-    height: 500,
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      preload: path.join(__dirname, "./preload.js"),
-    },
-  });
-
-  // Use loadFile method to load the HTML file
-  mainWindow.loadURL(path.join(__dirname, "./src/renderer/index.html"));
-
-  // handles naviation
-  ipcMain.on("load-next-page", (event, data) => {
-    mainWindow.loadURL(path.join(__dirname, `./src/renderer/${data}.html`));
-  });
-}
-
 app.whenReady().then(() => {
-  createWindow();
+  // creates browser window
+  (() => {
+    const mainWindow = new BrowserWindow({
+      width: 750,
+      height: 500,
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+        preload: path.join(__dirname, "./preload.js"),
+      },
+    });
+
+    // Use loadFile method to load the HTML file
+    mainWindow.loadURL(path.join(__dirname, "./src/renderer/index.html"));
+
+    // handles naviation
+    ipcMain.on("load-next-page", (event, data) => {
+      mainWindow.loadURL(path.join(__dirname, `./src/renderer/${data}.html`));
+    });
+  })();
 
   // gets system information
   ipcMain.on("requestSystemInfo", async (event) => {
