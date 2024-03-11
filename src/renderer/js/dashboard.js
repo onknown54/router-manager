@@ -49,6 +49,8 @@ document.querySelectorAll(".network__header .link").forEach((el) => {
       ".network .table.table-netInfo"
     );
 
+    await versions.getDevices();
+
     renderHtmlMarkup(await versions.getSystemInfo(), table_sInfo); // renders system information
 
     renderHtmlMarkup(await versions.getMemoryInfo(), table_netInfo); // renders memory information
