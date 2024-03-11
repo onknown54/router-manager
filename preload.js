@@ -11,6 +11,8 @@ contextBridge.exposeInMainWorld("versions", {
 
       // listen for the response from the main process
       ipcRenderer.once("responseSystemInfo", (event, data) => {
+        if (data.error) return console.log(data.error);
+
         return data.error ? reject(data.error) : resolve(data.systemInfo);
       });
     }),
@@ -21,6 +23,8 @@ contextBridge.exposeInMainWorld("versions", {
 
       // listen for the response from the main process
       ipcRenderer.once("responseMemoryInfo", (event, data) => {
+        if (data.error) return console.log(data.error);
+
         return data.error ? reject(data.error) : resolve(data.networkInfo);
       });
     }),
@@ -28,7 +32,7 @@ contextBridge.exposeInMainWorld("versions", {
     ipcRenderer.send("requestConnDevice");
 
     ipcRenderer.once("responseConnDevice", (event, data) => {
-      if (data.error) console.log(data.error);
+      if (data.error) return console.log(data.error);
 
       console.log(data.networkInfo);
       // return data.error ? reject(data.error) : resolve(data.networkInfo);

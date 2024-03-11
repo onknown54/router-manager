@@ -103,8 +103,7 @@ app.whenReady().then(() => {
           networkInfo: data,
         });
       } catch (er) {
-        event.sender.send("responseConnDevice", { error: er.message });
-        console.error(`Errors: ${stderr}`);
+        event.sender.send("responseConnDevice", { error: stderr });
       }
     });
   });
