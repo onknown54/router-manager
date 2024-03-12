@@ -118,6 +118,27 @@
       border: none;
       color: #1a1a1a;
     }
+
+    &--sysInfo {
+      background: #701e1266;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid #701e1240;
+    }
+
+    &--mem {
+      background: rgba(122, 36, 65, 0.5);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(122, 36, 65, 0.25);
+    }
+
+    &--available {
+      background: rgba(40, 77, 98, 0.5);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(40, 77, 98, 0.25);
+    }
   }
 }
 

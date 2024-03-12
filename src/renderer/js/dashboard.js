@@ -18,6 +18,34 @@ navLinks.forEach((el) => {
   });
 });
 
+[...document.querySelectorAll(".feature .feature__item")].forEach((itm) => {
+  itm.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    switch (this.textContent.trim().toLowerCase()) {
+      case "profile information":
+        versions.loadNestPage("load-next-page", "systemInformation");
+        break;
+
+      case "connected devices":
+        versions.loadNestPage("load-next-page", "devices");
+        break;
+
+      case "system information":
+        versions.loadNestPage("load-next-page", "systemInformation");
+        break;
+
+      case "settings":
+        versions.loadNestPage("load-next-page", "systemInformation");
+        break;
+
+      default:
+        versions.loadNestPage("load-next-page", "systemInformation");
+        break;
+    }
+  });
+});
+
 document.querySelectorAll(".network__header .link").forEach((el) => {
   el.addEventListener("click", function (e) {
     e.preventDefault();
