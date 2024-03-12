@@ -22,6 +22,7 @@
   .content {
     padding: 2rem 3rem;
     overflow-x: hidden;
+    margin-top: 6.2rem;
   }
 
   .navigation {
@@ -43,6 +44,13 @@
       color: #dfdfdf;
       text-decoration: none;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      img {
+        height: 3rem;
+      }
 
       &:hover,
       &.active {
@@ -60,6 +68,9 @@
     padding: 3.1rem 2rem;
     background: #253245;
     color: #ccc;
+    position: fixed;
+    right: 0;
+    width: 80%;
   }
 }
 
@@ -130,5 +141,84 @@ table {
 }
 
 .devices {
-  margin: 4rem 0;
+  margin: 1.5rem 0 4rem;
+}
+
+.breadcrumb {
+  padding: 0 0 2rem;
+
+  &__title {
+    margin-bottom: 0.7rem;
+  }
+
+  &__nav {
+    font-size: 1.3rem;
+    color: #ccc;
+  }
+}
+
+.feature {
+  margin: 0 0 4rem;
+
+  &__wrap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  &__item {
+    padding: 3rem;
+    cursor: pointer;
+    color: #e6e6e6;
+    font-weight: 600;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid #6e77838e;
+    transition: all 0.35s ease-in-out;
+
+    &--device {
+      background: #284978;
+
+      &:hover {
+        background: #1c3354;
+      }
+    }
+
+    &--systemInfo {
+      background: #8c2517;
+
+      &:hover {
+        background: #701e12;
+      }
+    }
+
+    &--settings {
+      background: #982d51;
+
+      &:hover {
+        background: #7a2441;
+      }
+    }
+
+    &--profile {
+      background: #32607a;
+
+      &:hover {
+        background: #284d62;
+      }
+    }
+  }
+
+  .img__wrap {
+    height: 5rem;
+
+    img {
+      height: 100%;
+      object-fit: contain;
+    }
+  }
 }
