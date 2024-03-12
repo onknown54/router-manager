@@ -78,32 +78,23 @@ app.whenReady().then(() => {
 
         const lines = stdout.split("\n").map((line) => line.trim());
 
-        const data = {
-          interface: lines[0],
-          dynamicEntries: [],
-          staticEntries: [],
-        };
-
+        const data = [];
         lines.slice(2).forEach((line) => {
-          const [internetAddress, physicalAddress, type] = line.split(/\s+/);
-
-          const entries = {
-            internetAddress,
-            physicalAddress,
-            type,
-          };
+          const [IPAddress, physicalAddress, type] = line.split(/\s+/);
 
           if (type?.toLowerCase() === "dynamic")
-            data.dynamicEntries.push(entries);
-          else if (type?.toLowerCase() === "static")
-            data.staticEntries.push(entries);
+            data.push({
+              IPAddress,
+              physicalAddress,
+              type,
+            });
         });
 
         event.sender.send("responseConnDevice", {
           networkInfo: data,
         });
       } catch (er) {
-        event.sender.send("responseConnDevice", { error: stderr });
+        event.sender.send("responseConnDevice", { error: { er, stderr } });
       }
     });
   });
