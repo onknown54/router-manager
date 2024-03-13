@@ -1,31 +1,13 @@
 "use strict";
-const navLinks = document.querySelectorAll(".dashboard .navigation__link");
-
-// handles navigation
-navLinks.forEach((el) => {
-  el.addEventListener("click", function (e) {
-    e.preventDefault();
-    navLinks.forEach((el) => el.classList.remove("active"));
-
-    this.classList.add("active");
-    let page = this.textContent
-      .split(" ")
-      .map((itm, idx) =>
-        idx ? itm.substr(0, 1).toUpperCase() + itm.substr(1) : itm.toLowerCase()
-      );
-
-    versions.loadNestPage("load-next-page", page.join(""));
-  });
-});
 
 // handles navigation for quick navigation cards
-[...document.querySelectorAll(".feature .feature__item")].forEach((itm) => {
+document.querySelectorAll(".feature .feature__item").forEach((itm) => {
   itm.addEventListener("click", function (e) {
     e.preventDefault();
 
     switch (this.textContent.trim().toLowerCase()) {
       case "profile information":
-        versions.loadNestPage("load-next-page", "systemInformation");
+        versions.loadNestPage("load-next-page", "profile");
         break;
 
       case "connected devices":
@@ -37,45 +19,33 @@ navLinks.forEach((el) => {
         break;
 
       case "settings":
-        versions.loadNestPage("load-next-page", "systemInformation");
+        versions.loadNestPage("load-next-page", "settings");
         break;
 
       default:
-        versions.loadNestPage("load-next-page", "systemInformation");
+        versions.loadNestPage("load-next-page", "dashboard");
         break;
     }
   });
 });
 
-// handles naviation for "view all" links
-document.querySelectorAll(".network__header .link").forEach((el) => {
-  el.addEventListener("click", function (e) {
-    e.preventDefault();
+const renderHtmlMarkup = (obj, markupBody, query) => {
+  const loader = document.querySelector(query);
 
-    if (this.classList.contains("link-devices"))
-      return versions.loadNestPage("load-next-page", "devices");
-
-    return versions.loadNestPage("load-next-page", "systemInformation");
-  });
-});
-
-// fetches data from main process
-(async () => {
-  const renderHtmlMarkup = (obj, markupBody) => {
-    const loader = document.getElementById("loader");
-
-    for (let key in obj) {
-      markupBody.innerHTML =
-        markupBody.innerHTML +
-        `<tr>
+  for (let key in obj) {
+    markupBody.innerHTML =
+      markupBody.innerHTML +
+      `<tr>
           <th>${key}</th>
           <td>${obj[key]}</td>
         </tr>`;
-    }
+  }
 
-    loader?.classList.add("hide");
-  };
+  loader?.classList.add("hide");
+};
 
+// fetches data from main process
+(async () => {
   try {
     const [sInfo, netInfo] = [
       document.querySelector(".network .table.table-sInfo"),
@@ -84,8 +54,8 @@ document.querySelectorAll(".network__header .link").forEach((el) => {
     const sDat = await versions.getSystemInfo();
     const netDat = await versions.getMemoryInfo();
 
-    renderHtmlMarkup(sDat, sInfo);
-    renderHtmlMarkup(netDat, netInfo);
+    renderHtmlMarkup(sDat, sInfo, ".netCard--system .loader");
+    renderHtmlMarkup(netDat, netInfo, ".netCard--mem .loader");
   } catch (er) {
     console.error("Error retrieving system information:", er);
   }

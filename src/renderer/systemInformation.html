@@ -31,13 +31,20 @@
                 ><img src="assets/imgs/wifite.png" alt="" />Devices</a
               >
             </li>
-            <!-- <li class="navigation__item">
-              <a href="settings.html" class="navigation__link">Settings</a>
-            </li> -->
             <li class="navigation__item">
               <a href="systemInfo.html" class="navigation__link"
                 ><img src="assets/imgs/data-transfer.png" alt="" />System
                 Information</a
+              >
+            </li>
+            <li class="navigation__item">
+              <a href="systemInfo.html" class="navigation__link"
+                ><img src="assets/imgs/data-transfer.png" alt="" />Profile</a
+              >
+            </li>
+            <li class="navigation__item">
+              <a href="systemInfo.html" class="navigation__link"
+                ><img src="assets/imgs/data-transfer.png" alt="" />Settings</a
               >
             </li>
           </ul>
@@ -55,7 +62,7 @@
                   <div class="network__header">
                     <p class="header">System Information</p>
                   </div>
-                  <div class="netCard">
+                  <div class="netCard netCard--system">
                     <div class="loader" id="loader">
                       <div
                         class="justify-content-center jimu-primary-loading"
@@ -68,7 +75,7 @@
                   <div class="network__header">
                     <p class="header">Memory Information</p>
                   </div>
-                  <div class="netCard">
+                  <div class="netCard netCard--mem">
                     <div class="loader" id="loader">
                       <div
                         class="justify-content-center jimu-primary-loading"
@@ -109,6 +116,8 @@
         </div>
       </div>
     </div>
-    <script src="js/dashboard.js"></script>
+
+    <script src="js/script.js"></script>
+    <script src="js/systemInfo.js"></script>
   </body>
 </html>
