@@ -6,6 +6,15 @@
   padding: 2rem;
   margin: 0 0 4rem;
 
+  .form {
+    width: 90%;
+    overflow: hidden;
+
+    label {
+      color: #ccc;
+    }
+  }
+
   &__wrap {
     display: flex;
     gap: 2rem;

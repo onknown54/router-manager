@@ -1,3 +1,25 @@
 .hide {
   display: none !important;
 }
+
+.label {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  text-align: center;
+
+  &__danger {
+    background: #8c2517;
+    color: #ccc;
+  }
+
+  &__pry {
+    background: #284978;
+    color: #ccc;
+  }
+}
+
+.mr-1 {
+  margin-right: 0.6rem;
+}
