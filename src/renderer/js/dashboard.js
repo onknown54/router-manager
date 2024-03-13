@@ -60,8 +60,10 @@ document.querySelectorAll(".network__header .link").forEach((el) => {
 });
 
 // fetches data from main process
-(async function () {
+(async () => {
   const renderHtmlMarkup = (obj, markupBody) => {
+    const loader = document.getElementById("loader");
+
     for (let key in obj) {
       markupBody.innerHTML =
         markupBody.innerHTML +
@@ -71,24 +73,19 @@ document.querySelectorAll(".network__header .link").forEach((el) => {
         </tr>`;
     }
 
-    return true;
+    loader?.classList.add("hide");
   };
 
   try {
-    const [sInfo, netInfo, loader, content] = [
+    const [sInfo, netInfo] = [
       document.querySelector(".network .table.table-sInfo"),
       document.querySelector(".network .table.table-netInfo"),
-      document.getElementById("loader"),
-      document.getElementById("content"),
     ];
+    const sDat = await versions.getSystemInfo();
+    const netDat = await versions.getMemoryInfo();
 
-    if (
-      renderHtmlMarkup(await versions.getSystemInfo(), sInfo) &&
-      renderHtmlMarkup(await versions.getMemoryInfo(), netInfo)
-    ) {
-      loader?.classList.add("hide");
-      content?.classList.add("content--scroll");
-    }
+    renderHtmlMarkup(sDat, sInfo);
+    renderHtmlMarkup(netDat, netInfo);
   } catch (er) {
     console.error("Error retrieving system information:", er);
   }
