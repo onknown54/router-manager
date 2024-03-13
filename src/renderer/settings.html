@@ -10,7 +10,7 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
-    <title>Router Manager - Settings</title>
+    <title>Router Manager - Profile</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
@@ -39,12 +39,12 @@
             </li>
             <li class="navigation__item">
               <a href="systemInfo.html" class="navigation__link"
-                ><img src="assets/imgs/data-transfer.png" alt="" />Profile</a
+                ><img src="assets/imgs/user.png" alt="" />Profile</a
               >
             </li>
             <li class="navigation__item">
               <a href="systemInfo.html" class="navigation__link"
-                ><img src="assets/imgs/data-transfer.png" alt="" />Settings</a
+                ><img src="assets/imgs/cogwheel.png" alt="" />Settings</a
               >
             </li>
           </ul>
@@ -53,15 +53,82 @@
           <header class="navbar"></header>
           <div class="content">
             <div class="breadcrumb">
-              <h3 class="breadcrumb__title">Manage Devices</h3>
-              <p class="breadcrumb__nav">Home / Devices</p>
+              <h3 class="breadcrumb__title">Profile information</h3>
+              <p class="breadcrumb__nav">Home / Profile</p>
             </div>
-            <div>settings things init</div>
+            <div class="profile">
+              <div class="profile__wrap">
+                <div class="profile__img">
+                  <img src="assets/imgs/user.png" alt="" />
+                </div>
+                <div class="profile__content">
+                  <header class="profile__header">
+                    <h3>Profile Information</h3>
+                  </header>
+                  <div class="profile__details">
+                    <form action="#" class="form" id="form">
+                      <div class="form__body">
+                        <div class="form__group">
+                          <label for="username">Username</label>
+                          <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            required
+                          />
+                        </div>
+                        <div class="form__group">
+                          <label for="password">Password</label>
+                          <input
+                            type="text"
+                            id="password"
+                            name="password"
+                            required
+                          />
+                        </div>
+                        <div class="form__group">
+                          <button
+                            type="submit"
+                            class="btn btn--block btn__primary"
+                          >
+                            Login
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="breadcrumb">
+              <h3 class="breadcrumb__title">Quick links</h3>
+            </div>
+            <div class="feature">
+              <div class="feature__wrap">
+                <div class="feature__item feature__item--device">
+                  <div class="img__wrap">
+                    <img src="assets/imgs/wifi.png" alt="wifi" />
+                  </div>
+                  <div class="img__caption">Connected Devices</div>
+                </div>
+                <div class="feature__item feature__item--systemInfo">
+                  <div class="img__wrap">
+                    <img src="assets/imgs/energy-system.png" alt="wifi" />
+                  </div>
+                  <div class="img__caption">System Information</div>
+                </div>
+                <div class="feature__item feature__item--settings">
+                  <div class="img__wrap">
+                    <img src="assets/imgs/setting.png" alt="wifi" />
+                  </div>
+                  <div class="img__caption">Settings</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <script src="js/script.js"></script>
+    <script src="js/dashboard.js"></script>
   </body>
 </html>
