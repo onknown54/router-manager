@@ -10,6 +10,7 @@ app.whenReady().then(() => {
     const mainWindow = new BrowserWindow({
       width: 750,
       height: 500,
+      autoHideMenuBar: true,
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
