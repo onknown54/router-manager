@@ -79,6 +79,7 @@ app.whenReady().then(() => {
     });
   })();
 
+  // updates user's profile
   ipcMain.on("updateCSV", async (event, newData) => {
     try {
       const csvData = newData
