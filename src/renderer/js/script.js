@@ -52,11 +52,15 @@ document.querySelectorAll(".network__header .link").forEach((el) => {
   el.addEventListener("click", function (e) {
     e.preventDefault();
 
-    if (this.classList.contains("link-devices"))
-      return versions.loadNestPage("load-next-page", "devices");
+    if (this.classList.contains("link-devices")) {
+      versions.loadNestPage("load-next-page", "devices");
+      return;
+    }
 
-    if (this.classList.contains("link-edit"))
-      return versions.loadNestPage("load-next-page", "settings");
+    if (this.classList.contains("link-edit")) {
+      versions.loadNestPage("load-next-page", "settings");
+      return;
+    }
 
     return versions.loadNestPage("load-next-page", "systemInformation");
   });

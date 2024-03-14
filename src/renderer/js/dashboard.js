@@ -1,22 +1,21 @@
 "use strict";
 
-const renderHtmlMarkup = (obj, markupBody, query) => {
-  const loader = document.querySelector(query);
-
-  for (let key in obj) {
-    markupBody.innerHTML =
-      markupBody.innerHTML +
-      `<tr>
+// fetches data from main process
+(async () => {
+  const renderHtmlMarkup = (obj, markupBody, query) => {
+    const loader = document.querySelector(query);
+    for (let key in obj) {
+      markupBody.innerHTML =
+        markupBody.innerHTML +
+        `<tr>
           <th>${key}</th>
           <td>${obj[key]}</td>
         </tr>`;
-  }
+    }
 
-  loader?.classList.add("hide");
-};
+    loader?.classList.add("hide");
+  };
 
-// fetches data from main process
-(async () => {
   try {
     const sDat = await versions.getSystemInfo();
     const netDat = await versions.getMemoryInfo();

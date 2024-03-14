@@ -55,4 +55,12 @@ contextBridge.exposeInMainWorld("versions", {
         return data.error ? rej(data.error) : res(data);
       });
     }),
+  updateCSV: async (newData) =>
+    new Promise((res, rej) => {
+      ipcRenderer.send("updateCSV", newData);
+      ipcRenderer.on("updateCSVResponse", (event, { success, er }) => {
+        if (er) rej(er);
+        res(success);
+      });
+    }),
 });

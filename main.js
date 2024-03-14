@@ -7,62 +7,56 @@ const { exec } = require("child_process");
 const fs = require("fs");
 const csv = require("csv-parser");
 
+// creates csv data storage
+(() => {
+  try {
+    const data = [
+      {
+        firstname: "firstname",
+        lastname: "lastname",
+        username: "username",
+        password: "password",
+        email: "email",
+        phone: "phone",
+      },
+      {
+        firstname: "John",
+        lastname: "Doe",
+        username: "Admin",
+        password: "Admin",
+        email: "john.doe@gmail.com",
+        phone: "+234 456 342 323234",
+      },
+    ];
+
+    fs.access("./data/data.csv", fs.constants.F_OK, async (err) => {
+      if (err) {
+        // Convert data array to CSV string
+        const csvData = data
+          .map(
+            (itm) =>
+              `${itm.firstname},${itm.lastname},${itm.username},${itm.password},${itm.email},${itm.phone}`
+          )
+          .join("\n");
+
+        // Write CSV string to file
+        await new Promise((resolve, reject) =>
+          fs.writeFile("./data/data.csv", csvData, (err) => {
+            if (err) reject(err);
+            else {
+              console.log("CSV file has been saved.");
+              resolve(1);
+            }
+          })
+        );
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+})();
+
 app.whenReady().then(() => {
-  // creates csv data storage
-  (() => {
-    try {
-      fs.access(
-        `${path.join(__dirname, "./data/data.csv")}`,
-        fs.constants.F_OK,
-        async (err) => {
-          if (err) {
-            const data = [
-              {
-                firstname: "firstname",
-                lastname: "lastname",
-                username: "username",
-                password: "password",
-                email: "email",
-                phone: "phone",
-              },
-              {
-                firstname: "John",
-                lastname: "Doe",
-                username: "Admin",
-                password: "Admin",
-                email: "john.doe@gmail.com",
-                phone: "+234 456 342 323234",
-              },
-            ];
-
-            // Convert data array to CSV string
-            const csvData = data
-              .map(
-                (entry) =>
-                  `${entry.firstname},${entry.lastname},${entry.username},${entry.password},${entry.email},${entry.phone}`
-              )
-              .join("\n");
-
-            // Write CSV string to file
-            await new Promise((resolve, reject) => {
-              fs.writeFile(
-                `${path.join(__dirname, "./data/data.csv")}`,
-                csvData,
-                (err) => {
-                  if (err) reject(err);
-                  else resolve();
-                }
-              );
-            });
-            console.log("CSV file has been saved.");
-          }
-        }
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  })();
-
   // creates browser window
   (() => {
     const mainWindow = new BrowserWindow({
@@ -85,7 +79,35 @@ app.whenReady().then(() => {
     });
   })();
 
-  // gets saved data - main.js
+  ipcMain.on("updateCSV", async (event, newData) => {
+    try {
+      const csvData = newData
+        .map(
+          (itm) =>
+            `${itm.firstname},${itm.lastname},${itm.username},${itm.password},${itm.email},${itm.phone}`
+        )
+        .join("\n");
+
+      // Write CSV string to file
+      await new Promise((resolve, reject) =>
+        fs.writeFile("./data/data.csv", csvData, (err) => {
+          if (err) return reject(err);
+          else {
+            console.log("CSV file has been updated.");
+            resolve(1);
+            event.sender.send("updateCSVResponse", { success: true });
+          }
+        })
+      );
+    } catch (error) {
+      event.sender.send("updateCSVResponse", {
+        success: false,
+        error: error.message,
+      });
+    }
+  });
+
+  // gets saved data
   ipcMain.on("requestUserData", async (event) => {
     try {
       const userData = [];
@@ -102,8 +124,8 @@ app.whenReady().then(() => {
       );
 
       event.sender.send("responseUserData", userData);
-    } catch (err) {
-      event.sender.send("responseUserData", { error: err.message });
+    } catch (er) {
+      event.sender.send("responseUserData", { error: er });
     }
   });
 
