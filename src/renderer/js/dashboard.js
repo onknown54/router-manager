@@ -18,12 +18,12 @@ const renderHtmlMarkup = (obj, markupBody, query) => {
 // fetches data from main process
 (async () => {
   try {
+    const sDat = await versions.getSystemInfo();
+    const netDat = await versions.getMemoryInfo();
     const [sInfo, netInfo] = [
       document.querySelector(".network .table.table-sInfo"),
       document.querySelector(".network .table.table-netInfo"),
     ];
-    const sDat = await versions.getSystemInfo();
-    const netDat = await versions.getMemoryInfo();
 
     renderHtmlMarkup(sDat, sInfo, ".netCard--system .loader");
     renderHtmlMarkup(netDat, netInfo, ".netCard--mem .loader");

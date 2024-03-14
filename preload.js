@@ -12,31 +12,47 @@ contextBridge.exposeInMainWorld("versions", {
 
       // listen for the response from the main process
       ipcRenderer.once("responseSystemInfo", (event, data) => {
-        if (data.error) return console.log(data.error);
+        if (data.error) {
+          console.error(data.error);
+          return;
+        }
 
         return data.error ? reject(data.error) : resolve(data.systemInfo);
       });
     }),
   getMemoryInfo: () =>
     new Promise((resolve, reject) => {
-      // requests network information from main process
       ipcRenderer.send("requestMemoryInfo");
-
-      // listen for the response from the main process
       ipcRenderer.once("responseMemoryInfo", (event, data) => {
-        if (data.error) return console.log(data.error);
+        if (data.error) {
+          console.error(data.error);
+          return;
+        }
 
         return data.error ? reject(data.error) : resolve(data.networkInfo);
       });
     }),
   getDevices: () => {
     ipcRenderer.send("requestConnDevice");
-
     ipcRenderer.once("responseConnDevice", (event, data) => {
-      if (data.error) return console.log(data.error);
+      if (data.error) {
+        console.error(data.error);
+        return;
+      }
 
       console.log(data.networkInfo);
-      // return data.error ? reject(data.error) : resolve(data.networkInfo);
     });
   },
+  getData: async () =>
+    new Promise((res, rej) => {
+      ipcRenderer.send("requestUserData");
+      ipcRenderer.once("responseUserData", (event, data) => {
+        if (data.error) {
+          console.error(data.error);
+          return;
+        }
+
+        return data.error ? rej(data.error) : res(data);
+      });
+    }),
 });
