@@ -2,57 +2,52 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("versions", {
-  loadNestPage: (channel, data) => {
-    ipcRenderer.send(channel, data);
-  },
+  loadNestPage: (channel, data) => ipcRenderer.send(channel, data),
   getSystemInfo: () =>
     new Promise((resolve, reject) => {
-      // requests system information from main process
-      ipcRenderer.send("requestSystemInfo");
-
-      // listen for the response from the main process
-      ipcRenderer.once("responseSystemInfo", (event, data) => {
-        if (data.error) {
-          console.error(data.error);
-          return;
+      ipcRenderer.send("requestSystemInfo"); // requests system information from main process
+      ipcRenderer.once("responseSystemInfo", (e, { error, systemInfo }) => {
+        if (error) {
+          console.error(error);
+          reject(error);
         }
 
-        return data.error ? reject(data.error) : resolve(data.systemInfo);
-      });
+        resolve(systemInfo);
+      }); // listen for the response from the main process
     }),
   getMemoryInfo: () =>
     new Promise((resolve, reject) => {
       ipcRenderer.send("requestMemoryInfo");
-      ipcRenderer.once("responseMemoryInfo", (event, data) => {
-        if (data.error) {
-          console.error(data.error);
-          return;
+      ipcRenderer.once("responseMemoryInfo", (e, { error, networkInfo }) => {
+        if (error) {
+          console.error(error);
+          reject(error);
         }
 
-        return data.error ? reject(data.error) : resolve(data.networkInfo);
+        resolve(networkInfo);
       });
     }),
   getDevices: () => {
     ipcRenderer.send("requestConnDevice");
-    ipcRenderer.once("responseConnDevice", (event, data) => {
-      if (data.error) {
-        console.error(data.error);
+    ipcRenderer.once("responseConnDevice", (e, { error, networkInfo }) => {
+      if (error) {
+        console.error(error);
         return;
       }
 
-      console.log(data.networkInfo);
+      console.log(networkInfo);
     });
   },
   getData: async () =>
     new Promise((res, rej) => {
       ipcRenderer.send("requestUserData");
-      ipcRenderer.once("responseUserData", (event, data) => {
+      ipcRenderer.once("responseUserData", (e, data) => {
         if (data.error) {
           console.error(data.error);
-          return;
+          rej(data.error);
         }
 
-        return data.error ? rej(data.error) : res(data);
+        res(data);
       });
     }),
   updateCSV: async (newData) =>
