@@ -59,12 +59,33 @@
   }
 }
 
-.input__group {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
+.input {
+  &__group {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
 
-  .form__group {
-    flex: 0 0 50%;
+    .form__group {
+      flex: 0 0 50%;
+    }
+  }
+
+  &__flex {
+    display: flex;
+
+    .form__group label {
+      color: #ccc;
+    }
+
+    input {
+      flex: 75%;
+      padding: 1rem 0.7rem;
+    }
+
+    .btn {
+      flex: 1;
+      align-self: flex-start;
+      text-align: center;
+    }
   }
 }
