@@ -108,35 +108,25 @@ app.whenReady().then(() => {
     }
   });
 
-  // gets saved data
-  ipcMain.on("requestUserData", async (event) => {
-    try {
-      const userData = [];
-      await new Promise((resolve, reject) =>
-        fs
-          .createReadStream("./data/data.csv")
-          .pipe(csv())
-          .on("data", (data) => userData.push(data))
-          .on("end", () => resolve(userData))
-          .on("error", (err) => {
-            console.error("Error reading CSV file:", err);
-            reject(err);
-          })
-      );
-
-      event.sender.send("responseUserData", userData);
-    } catch (er) {
-      event.sender.send("responseUserData", { error: er });
-    }
+  // gets user's data
+  ipcMain.on("reqUserData", async (e) => {
+    const data = [];
+    const resp = await new Promise((resolve, reject) =>
+      fs
+        .createReadStream("./data/data.csv")
+        .pipe(csv())
+        .on("data", (e) => data.push(e))
+        .on("end", () => resolve(data))
+        .on("error", (er) => reject({ error: er }))
+    );
+    e.sender.send("respUserData", resp);
   });
 
   // gets system information
-  ipcMain.on("requestSystemInfo", async (event) => {
-    try {
-      const { arch, distro, hostname, kernel, platform, release, build } =
-        await si.osInfo();
-
-      event.sender.send("responseSystemInfo", {
+  ipcMain.on("reqSystemInfo", async (e) => {
+    const resp = await si
+      .osInfo()
+      .then(({ arch, distro, hostname, kernel, platform, release, build }) => ({
         systemInfo: {
           arch,
           distro,
@@ -146,20 +136,17 @@ app.whenReady().then(() => {
           release,
           build,
         },
-      });
-    } catch (er) {
-      event.sender.send("responseSystemInfo", { error: er.message });
-    }
+      }))
+      .catch((er) => ({ error: er.message }));
+    e.sender.send("respSystemInfo", resp);
   });
 
   // gets memory information
-  ipcMain.on("requestMemoryInfo", async (event) => {
-    try {
-      const { total, free, used, active, available, buffers, cached } =
-        await si.mem();
-
-      event.sender.send("responseMemoryInfo", {
-        networkInfo: {
+  ipcMain.on("reqMemInfo", async (e) => {
+    const resp = await si
+      .mem()
+      .then(({ total, free, used, active, available, buffers, cached }) => ({
+        memInfo: {
           total,
           free,
           used,
@@ -168,14 +155,13 @@ app.whenReady().then(() => {
           buffers,
           cached,
         },
-      });
-    } catch (er) {
-      event.sender.send("responseMemoryInfo", { error: er.message });
-    }
+      }))
+      .catch((er) => ({ error: er.message }));
+    e.sender.send("respMemInfo", resp);
   });
 
   // gets connected devices
-  ipcMain.on("requestConnDevice", async (event) => {
+  ipcMain.on("reqConnDevice", async (event) => {
     exec("arp -a", (er, stdout, stderr) => {
       try {
         if (er) throw er;
@@ -194,11 +180,11 @@ app.whenReady().then(() => {
             });
         });
 
-        event.sender.send("responseConnDevice", {
+        event.sender.send("respConnDevice", {
           networkInfo: data,
         });
       } catch (er) {
-        event.sender.send("responseConnDevice", { error: { er, stderr } });
+        event.sender.send("respConnDevice", { error: { er, stderr } });
       }
     });
   });
