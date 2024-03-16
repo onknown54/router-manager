@@ -160,6 +160,68 @@ app.whenReady().then(() => {
     e.sender.send("respMemInfo", resp);
   });
 
+  // gets graphics information
+  ipcMain.on("reqGraphicsInfo", async (e) => {
+    const resp = await si
+      .graphics()
+      .then(
+        ({
+          displays: [
+            {
+              model,
+              connection,
+              resolutionX,
+              resolutionY,
+              currentResX,
+              currentResY,
+              vendor,
+            },
+          ],
+        }) => ({
+          graphicsInfo: {
+            model,
+            connection,
+            resolutionX,
+            resolutionY,
+            currentResX,
+            currentResY,
+            vendor,
+          },
+        })
+      )
+      .catch((er) => ({ error: er.message }));
+    e.sender.send("respGraphicsInfo", resp);
+  });
+
+  // gets CPU information
+  ipcMain.on("reqCPUInfo", async (e) => {
+    const resp = await si
+      .cpu()
+      .then(
+        ({
+          manufacturer,
+          brand,
+          vendor,
+          family,
+          speed,
+          cores,
+          processors,
+        }) => ({
+          prosInfo: {
+            manufacturer,
+            brand,
+            vendor,
+            family,
+            speed,
+            cores,
+            processors,
+          },
+        })
+      )
+      .catch((er) => ({ error: er.message }));
+    e.sender.send("respCPUInfo", resp);
+  });
+
   // gets connected devices
   ipcMain.on("reqConnDevice", async (event) => {
     exec("arp -a", (er, stdout, stderr) => {
