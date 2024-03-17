@@ -17,6 +17,20 @@ contextBridge.exposeInMainWorld("versions", {
         error ? reject(error) : resolve(memInfo)
       );
     }),
+  getGraphicsInfo: () =>
+    new Promise((resolve, reject) => {
+      ipcRenderer.send("reqGraphicsInfo");
+      ipcRenderer.once("respGraphicsInfo", (e, { error, graphicsInfo }) =>
+        error ? reject(error) : resolve(graphicsInfo)
+      );
+    }),
+  getCPUInfo: () =>
+    new Promise((resolve, reject) => {
+      ipcRenderer.send("reqCPUInfo");
+      ipcRenderer.once("respCPUInfo", (e, { error, prosInfo }) =>
+        error ? reject(error) : resolve(prosInfo)
+      );
+    }),
   getDevices: () => {
     ipcRenderer.send("reqConnDevice");
     ipcRenderer.once("respConnDevice", (e, { error, networkInfo }) => {

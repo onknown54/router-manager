@@ -32,3 +32,25 @@ const renderHtmlMarkup = (obj, markupBody, query) => {
       renderHtmlMarkup(resp, netTable, ".netCard--mem .loader");
     })
     .catch(console.error))();
+
+// gets graphics information
+(async () =>
+  await versions
+    .getGraphicsInfo()
+    .then((resp) => {
+      const netTable = document.querySelector(
+        ".network .table.table-graphicsInfo"
+      );
+      renderHtmlMarkup(resp, netTable, ".netCard--graphicsInfo .loader");
+    })
+    .catch(console.error))();
+
+// gets CPU information
+(async () =>
+  await versions
+    .getCPUInfo()
+    .then((resp) => {
+      const netTable = document.querySelector(".network .table.table-cpuInfo");
+      renderHtmlMarkup(resp, netTable, ".netCard--cpuInfo .loader");
+    })
+    .catch(console.error))();

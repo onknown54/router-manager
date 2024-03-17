@@ -118,7 +118,7 @@
     min-height: 30rem;
 
     &--disable {
-      background: #e6e6e680;
+      background: #e6e6e6;
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       border: 1px solid #e6e6e640;
@@ -213,6 +213,14 @@ td {
 
 .devices {
   margin: 1.5rem 0 4rem;
+
+  &--ip {
+    color: #ccc;
+
+    .form__group label {
+      color: inherit;
+    }
+  }
 }
 
 .breadcrumb {
@@ -248,6 +256,7 @@ td {
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
+    text-align: center;
     border: 1px solid #6e77838e;
     transition: all 0.35s ease-in-out;
 

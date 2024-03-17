@@ -16,6 +16,7 @@
   <body>
     <div class="dashboard">
       <div class="dashboard__wrap">
+        <!-- #region left navigation -->
         <nav class="navigation">
           <header class="navigation__header">
             <h3>Router Manager</h3>
@@ -49,6 +50,7 @@
             </li>
           </ul>
         </nav>
+        <!-- #endregion -->
         <div class="dashboard__main">
           <header class="navbar"></header>
           <div class="content">
@@ -56,6 +58,21 @@
               <h3 class="breadcrumb__title">Manage Devices</h3>
               <p class="breadcrumb__nav">Home / Devices</p>
             </div>
+            <div class="devices device--ip">
+              <div class="form__group">
+                <label for="username">Please input your network IP</label>
+                <div class="input__flex">
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    autocomplete="off"
+                    required
+                  /><a href="#" class="btn btn__primary">Get devices</a>
+                </div>
+              </div>
+            </div>
+            <!-- #region connected & blocked devices -->
             <div class="devices">
               <div class="network__item network__item--disable">
                 <div class="network__header">Connected Devices</div>
@@ -196,6 +213,7 @@
                 </div>
               </div>
             </div>
+            <!-- #endregion -->
           </div>
         </div>
       </div>
