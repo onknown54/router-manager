@@ -10,12 +10,13 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
-    <title>Router Manager</title>
+    <title>Router Manager - Dashboard</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
     <div class="dashboard">
       <div class="dashboard__wrap">
+        <!-- #region left navigation -->
         <nav class="navigation">
           <header class="navigation__header">
             <h3>Router Manager</h3>
@@ -49,6 +50,7 @@
             </li>
           </ul>
         </nav>
+        <!-- #endregion -->
         <div class="dashboard__main">
           <header class="navbar"></header>
           <div class="content" id="content">
@@ -56,6 +58,7 @@
               <div class="breadcrumb">
                 <h3 class="breadcrumb__title">Welcome Daniel</h3>
               </div>
+              <!-- #region quick navigation card -->
               <div class="feature">
                 <div class="feature__wrap">
                   <div class="feature__item feature__item--device">
@@ -84,6 +87,8 @@
                   </div>
                 </div>
               </div>
+              <!-- #endregion -->
+              <!-- #region system information -->
               <div class="network__wrap">
                 <div class="network__item network__item--available">
                   <div class="network__header">
@@ -114,7 +119,9 @@
                   </div>
                 </div>
               </div>
+              <!-- #endregion -->
             </div>
+            <!-- #region connected devices -->
             <div class="devices">
               <div class="network__item network__item--disable">
                 <div class="network__header">
@@ -188,6 +195,7 @@
                 </div>
               </div>
             </div>
+            <!-- #endregion -->
           </div>
         </div>
       </div>

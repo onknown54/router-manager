@@ -80,32 +80,29 @@ app.whenReady().then(() => {
   })();
 
   // updates user's profile
-  ipcMain.on("updateCSV", async (event, newData) => {
-    try {
-      const csvData = newData
-        .map(
-          (itm) =>
-            `${itm.firstname},${itm.lastname},${itm.username},${itm.password},${itm.email},${itm.phone}`
-        )
-        .join("\n");
+  ipcMain.on("updateCSV", async (e, newData) => {
+    // Write CSV string to file
+    const csvData = newData
+      .map(
+        (itm) =>
+          `${itm.firstname},${itm.lastname},${itm.username},${itm.password},${itm.email},${itm.phone}`
+      )
+      .join("\n");
 
-      // Write CSV string to file
-      await new Promise((resolve, reject) =>
-        fs.writeFile("./data/data.csv", csvData, (err) => {
-          if (err) return reject(err);
-          else {
-            console.log("CSV file has been updated.");
-            resolve(1);
-            event.sender.send("updateCSVResponse", { success: true });
-          }
-        })
-      );
-    } catch (error) {
-      event.sender.send("updateCSVResponse", {
-        success: false,
-        error: error.message,
-      });
-    }
+    const resp = await new Promise((resolve, reject) =>
+      fs.writeFile("./data/data.csv", csvData, (er) => {
+        if (er)
+          reject({
+            success: false,
+            error: er.message,
+          });
+        else {
+          console.log("CSV file has been updated.");
+          resolve({ success: true });
+        }
+      })
+    );
+    e.sender.send("updateCSVResponse", resp);
   });
 
   // gets user's data
