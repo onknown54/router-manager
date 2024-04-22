@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Router Manager - Dashboard</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <div class="dashboard">
+      <div class="dashboard__wrap">
+        <!-- #region left navigation -->
+        <nav class="navigation">
+          <header class="navigation__header">
+            <h3>Router Manager</h3>
+          </header>
+          <ul class="navigation__main">
+            <li class="navigation__item">
+              <a href="dashboard.html" class="navigation__link">
+                <img src="assets/imgs/dashboard.png" alt="" />Dashboard</a
+              >
+            </li>
+            <li class="navigation__item">
+              <a href="devices.html" class="navigation__link"
+                ><img src="assets/imgs/wifite.png" alt="" />Devices</a
+              >
+            </li>
+            <li class="navigation__item">
+              <a href="systemInfo.html" class="navigation__link"
+                ><img src="assets/imgs/data-transfer.png" alt="" />System
+                Information</a
+              >
+            </li>
+            <li class="navigation__item">
+              <a href="systemInfo.html" class="navigation__link"
+                ><img src="assets/imgs/user.png" alt="" />Profile</a
+              >
+            </li>
+            <li class="navigation__item">
+              <a href="systemInfo.html" class="navigation__link"
+                ><img src="assets/imgs/cogwheel.png" alt="" />Settings</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <!-- #endregion -->
+        <div class="dashboard__main">
+          <header class="navbar"></header>
+          <div class="content" id="content">
+            <div class="network">
+              <div class="breadcrumb">
+                <h3 class="breadcrumb__title">Welcome Daniel</h3>
+              </div>
+              <!-- #region quick navigation card -->
+              <div class="feature">
+                <div class="feature__wrap">
+                  <div class="feature__item feature__item--device">
+                    <div class="img__wrap">
+                      <img src="assets/imgs/wifi.png" alt="wifi" />
+                    </div>
+                    <div class="img__caption">Connected Devices</div>
+                  </div>
+                  <div class="feature__item feature__item--systemInfo">
+                    <div class="img__wrap">
+                      <img src="assets/imgs/energy-system.png" alt="wifi" />
+                    </div>
+                    <div class="img__caption">System Information</div>
+                  </div>
+                  <div class="feature__item feature__item--profile">
+                    <div class="img__wrap">
+                      <img src="assets/imgs/boy.png" alt="wifi" />
+                    </div>
+                    <div class="img__caption">Profile Information</div>
+                  </div>
+                  <div class="feature__item feature__item--settings">
+                    <div class="img__wrap">
+                      <img src="assets/imgs/setting.png" alt="wifi" />
+                    </div>
+                    <div class="img__caption">Settings</div>
+                  </div>
+                </div>
+              </div>
+              <!-- #endregion -->
+              <!-- #region system information -->
+              <div class="network__wrap">
+                <div class="network__item network__item--available">
+                  <div class="network__header">
+                    <p class="header">System Information</p>
+                    <p class="link link-sysInfo">view all</p>
+                  </div>
+                  <div class="netCard netCard--system">
+                    <div class="loader" id="loader">
+                      <div
+                        class="justify-content-center jimu-primary-loading"
+                      ></div>
+                    </div>
+                    <table class="table table-sInfo"></table>
+                  </div>
+                </div>
+                <div class="network__item network__item--mem">
+                  <div class="network__header">
+                    <p class="header">Memory Information</p>
+                    <p class="link link-sysInfo">view all</p>
+                  </div>
+                  <div class="netCard netCard--mem">
+                    <div class="loader" id="loader">
+                      <div
+                        class="justify-content-center jimu-primary-loading"
+                      ></div>
+                    </div>
+                    <table class="table table-netInfo"></table>
+                  </div>
+                </div>
+              </div>
+              <!-- #endregion -->
+            </div>
+            <!-- #region connected devices -->
+            <div class="devices">
+              <div class="network__item network__item--disable">
+                <div class="network__header">
+                  <p class="header">Wireless devices</p>
+                  <p class="link link-devices">view all</p>
+                </div>
+                <div class="netCard">
+                  <table class="table table--light">
+                    <tr>
+                      <th>No</th>
+                      <th>SSID</th>
+                      <th>Host name</th>
+                      <th>Ip address</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>Main SSID</td>
+                      <td>Host name</td>
+                      <td>David</td>
+                      <td class="action">
+                        <span class="label label__danger mr-1">block</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Main SSID</td>
+                      <td>Host name</td>
+                      <td>David</td>
+                      <td class="action">
+                        <span class="label label__danger mr-1">block</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Main SSID</td>
+                      <td>Host name</td>
+                      <td>David</td>
+                      <td class="action">
+                        <span class="label label__danger mr-1">block</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>Main SSID</td>
+                      <td>Host name</td>
+                      <td>David</td>
+                      <td class="action">
+                        <span class="label label__danger mr-1">block</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>Main SSID</td>
+                      <td>Host name</td>
+                      <td>David</td>
+                      <td class="action">
+                        <span class="label label__danger mr-1">block</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>Main SSID</td>
+                      <td>Host name</td>
+                      <td>David</td>
+                      <td class="action">
+                        <span class="label label__danger mr-1">block</span>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- #endregion -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

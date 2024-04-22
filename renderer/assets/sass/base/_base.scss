@@ -1,0 +1,29 @@
+*::after,
+*::before,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 60%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+  background: #0d1d31;
+  color: #fff;
+
+  &.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+  }
+}

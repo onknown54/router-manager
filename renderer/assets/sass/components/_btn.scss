@@ -1,0 +1,20 @@
+.btn {
+  display: inline-block;
+  padding: 1rem 0.7rem;
+  text-decoration: none;
+  color: currentColor;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &__primary {
+    background: #0b50a3;
+    color: #fff;
+  }
+
+  &--block {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+}

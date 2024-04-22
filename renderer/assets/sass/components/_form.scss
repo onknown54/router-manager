@@ -1,0 +1,91 @@
+.card {
+  background: #fff;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3rem 3rem 5rem;
+  box-shadow: 0 0 1rem #202020;
+  border-radius: 1rem;
+  width: 30rem;
+}
+
+.form {
+  &__header {
+    text-align: center;
+
+    h3 {
+      color: #0d1d31;
+    }
+  }
+
+  &__body {
+    margin-top: 2rem;
+  }
+
+  &__group {
+    color: #202020;
+
+    label,
+    input {
+      display: block;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 0.7rem;
+      transition: all 0.4s;
+      color: currentColor;
+
+      &:focus {
+        color: #0b50a3;
+      }
+    }
+
+    input {
+      outline: none;
+      border: 0.1rem solid #ccc;
+      padding: 0.6rem 1rem;
+      width: 100%;
+      margin-bottom: 2rem;
+      transition: all 0.4s;
+
+      &:focus {
+        border: 0.1rem solid #0b50a3;
+      }
+    }
+  }
+}
+
+.input {
+  &__group {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+
+    .form__group {
+      flex: 0 0 50%;
+    }
+  }
+
+  &__flex {
+    display: flex;
+
+    .form__group label {
+      color: #ccc;
+    }
+
+    input {
+      flex: 75%;
+      padding: 1rem 0.7rem;
+    }
+
+    .btn {
+      flex: 1;
+      align-self: flex-start;
+      text-align: center;
+    }
+  }
+}
