@@ -34,8 +34,8 @@ const csv = require("csv-parser");
         // Convert data array to CSV string
         const csvData = data
           .map(
-            (itm) =>
-              `${itm.firstname},${itm.lastname},${itm.username},${itm.password},${itm.email},${itm.phone}`
+            ({ firstname, lastname, username, password, email, phone }) =>
+              `${firstname},${lastname},${username},${password},${email},${phone}`
           )
           .join("\n");
 
@@ -71,11 +71,11 @@ app.whenReady().then(() => {
     });
 
     // Use loadFile method to load the HTML file
-    mainWindow.loadURL(path.join(__dirname, "./src/renderer/index.html"));
+    mainWindow.loadURL(path.join(__dirname, "./renderer/index.html"));
 
     // handles naviation
     ipcMain.on("load-next-page", (event, data) => {
-      mainWindow.loadURL(path.join(__dirname, `./src/renderer/${data}.html`));
+      mainWindow.loadURL(path.join(__dirname, `./renderer/${data}.html`));
     });
   })();
 
@@ -84,8 +84,8 @@ app.whenReady().then(() => {
     // Write CSV string to file
     const csvData = newData
       .map(
-        (itm) =>
-          `${itm.firstname},${itm.lastname},${itm.username},${itm.password},${itm.email},${itm.phone}`
+        ({ firstname, lastname, username, password, email, phone }) =>
+          `${firstname},${lastname},${username},${password},${email},${phone}`
       )
       .join("\n");
 
