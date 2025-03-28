@@ -10,6 +10,7 @@
     e.preventDefault();
 
     if (inpPass && inpUser) {
+      console.log(username, password);
       if (inpUser.value !== username || inpPass.value !== password)
         return alert("Please input the correct login credentials");
 

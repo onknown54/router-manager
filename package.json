@@ -6,18 +6,16 @@
   "scripts": {
     "start": "npx electronmon --trace-warnings .",
     "dev": "electron .",
-    "compile": "node-sass ./src/renderer/assets/sass/styles.scss ./src/renderer/assets/css/styles.css -w --source-map true"
+    "compile": "sass ./src/renderer/assets/sass/styles.scss ./src/renderer/assets/css/styles.css -w --source-map true"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "electron": "^29.1.0"
-  },
   "dependencies": {
     "csv-parser": "^3.0.0",
+    "electron": "^35.1.2",
     "local-devices": "^4.0.0",
-    "node-sass": "^9.0.0",
+    "sass": "^1.86.0",
     "systeminformation": "^5.22.0"
   }
 }
